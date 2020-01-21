@@ -13,7 +13,7 @@ def copy_individual(individual):
 
 
 def evaluate(x):
-    x.score = check(GROUP_ID, x.genotype)
+    x.score = check(GROUP_ID, x.phenotype())
     return x
 
 
