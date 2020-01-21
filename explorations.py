@@ -11,7 +11,6 @@ class RandomExploration:
 class SimpleExploration:
     def __init__(self, cross_over, mutation, bests_size=5):
         self.cross_over = cross_over
-        self.cross_over = cross_over
         self.mutate = mutation
         self.bests_size = bests_size
 
