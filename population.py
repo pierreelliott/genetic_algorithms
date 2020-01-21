@@ -22,7 +22,7 @@ class Population:
         for i in range(n):
             max_individual = max(pop, key=lambda x: x.score)
             res.append(max_individual)
-            pop = pop.remove(max_individual)
+            pop.remove(max_individual)
         return res
 
     def get_average_score(self):
