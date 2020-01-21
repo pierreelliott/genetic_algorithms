@@ -1,4 +1,5 @@
-from utils import evaluate
+from utils import evaluate, available_characters
+import random
 
 
 class Population:
@@ -49,7 +50,14 @@ class Individual:
     def clone(self):
         return Individual(self.genotype[:], self.score)
     
-    
+
+def generate(size=18):
+    individual = random.choices(available_characters, k=size)
+    while len(''.join(individual)) < 12:
+        individual = random.choices(available_characters, k=size)
+    return individual
+
+
 def generate_population(size):
     """
     Generate `size` Individuals with random genotype

@@ -14,35 +14,37 @@ def plot_results(average, bests):
     plt.show()
 
 
-def evolve(pop, epochs=5, show_progress=False):
+def evolve_population(population, max_epochs=1000, show_progress=False, progress_step=10):
     averages = []
     bests = []
-    best = pop.population[0]
-    for epoch in range(epochs):
-        pop.evaluate()
-        b = max(pop.population, key=lambda x: x['score'])
-        best = b if b['score'] > best['score'] else best
-        bests.append(best['score'])
-        average = sum(map(lambda x: x['score'], pop.population)) / pop.size
+    best = population.population[0]
+    for epoch in range(max_epochs):
+        population.evaluate()
+        b = population.get_max()
+        best = b if b.score > best.score else best
+        bests.append(best.score)
+        average = population.get_average_score()
         averages.append(average)
+
         if show_progress:
-            print(f"Epoch {epoch+1}/{epochs}: Best {''.join(best['genotype'])} ({best['score']}) (average: {average})")
-#             print(str(pop))
-        if best['score'] == 1.0:
-            print(f"Best found: {''.join(best['genotype'])} at Epoch {epoch+1}/{epochs}!")
+            print(f"Epoch {epoch + 1}/{max_epochs}: Best {best.phenotype()} ({best.score}) (average: {average})")
+
+        if best.score == 1.0:
+            print(f"Best found: {best.phenotype()} at Epoch {epoch + 1}/{max_epochs}!")
             break
-        pop.evolve()
+
+        population.evolve()
     return averages, bests, best
 
 
 def search(population_size=10, epochs=10):
     cross_over = CrossOverRandomTwo(0.6)
     mutation = NCharMutation(n=2)
-    exploration = SimpleExploration(cross_over, mutation)
+    exploration = SimpleExploration(cross_over, mutation, bests_size=int(population_size / 10))
 
     population = Population(population_size, exploration=exploration)
-    averages, bests, best = evolve(population, epochs=epochs, show_progress=False)
-    print(f"Best solution found: {''.join(best['genotype'])} ({best['score']})")
+    averages, bests, best = evolve_population(population, max_epochs=epochs, show_progress=False)
+    print(f"Best solution found: {best.phenotype()} ({best.score})")
     plot_results(averages, bests)
 
 

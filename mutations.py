@@ -11,7 +11,7 @@ class NCharMutation:
         self.n = n
 
     def __call__(self, individual):
-        charidx_to_mutate = random.choices(range(len(individual['genotype'])), k=self.n)
+        charidx_to_mutate = random.choices(range(len(individual.genotype)), k=self.n)
 
         for idx in charidx_to_mutate:
             individual['genotype'][idx] = random.choice(available_characters)
