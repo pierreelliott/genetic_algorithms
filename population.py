@@ -1,9 +1,8 @@
-from explorations import RandomExploration
 from utils import evaluate
 
 
 class Population:
-    def __init__(self, size, exploration=RandomExploration()):
+    def __init__(self, size, exploration):
         self.size = size
         self.population = generate_population(size)
         self.exploration = exploration
