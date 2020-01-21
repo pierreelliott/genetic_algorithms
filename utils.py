@@ -13,18 +13,21 @@ def copy_individual(individual):
 
 
 def evaluate(x):
-    x['score'] = check(GROUP_ID, x['genotype'])
+    x.score = check(GROUP_ID, x.genotype)
     return x
 
 
 def generate(size=18):
     individual = random.choices(available_characters, k=size)
-    while len(individual) < 12:
+    while len(''.join(individual)) < 12:
         individual = random.choices(available_characters, k=size)
     return individual
 
 
 def generate_population(size):
-    return [{'genotype': generate(), 'score': None} for i in range(size)]
+    """
+    Generate `size` Individuals with random genotype
+    """
+    return [Individual(generate()) for i in range(size)]
 
 

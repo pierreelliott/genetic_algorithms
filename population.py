@@ -31,4 +31,4 @@ class Individual:
         return ''.join(self.genotype)
     
     def clone(self):
-        return Individual(self.genotype, self.score)
+        return Individual(self.genotype[:], self.score)
