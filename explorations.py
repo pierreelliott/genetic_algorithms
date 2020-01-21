@@ -31,3 +31,14 @@ class SimpleExploration:
 
     def selection(self, pop):
         return pop.population[:self.bests_size]
+    
+
+class TerraExploration:
+    def __init__(self, cross_over, mutation, pop_size, bests_size=5):
+        self.cross_over = cross_over
+        self.mutate = mutation
+        self.bests_size = bests_size
+        self.size = pop_size
+        
+    def evolve(self, pop):
+        new_population = []
