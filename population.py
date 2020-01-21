@@ -1,5 +1,5 @@
 from explorations import RandomExploration
-from utils import generate_population, evaluate
+from utils import evaluate
 
 
 class Population:
@@ -49,3 +49,10 @@ class Individual:
     
     def clone(self):
         return Individual(self.genotype[:], self.score)
+    
+    
+def generate_population(size):
+    """
+    Generate `size` Individuals with random genotype
+    """
+    return [Individual(generate()) for i in range(size)]

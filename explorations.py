@@ -1,5 +1,6 @@
 import random
-from utils import copy_individual, generate_population
+from utils import copy_individual
+from population import generate_population
 
 
 class RandomExploration:
@@ -23,7 +24,7 @@ class SimpleExploration:
             if random.random() < self.cross_over.prob:
                 individual = self.cross_over(selected)
             else:
-                individual = copy_individual(selected[0])  ############################################# FIXME
+                individual = selected[0].clone()  ############################################# FIXME
 
             self.mutate(individual)  # In-place
             new_population.append(individual)

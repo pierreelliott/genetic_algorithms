@@ -24,10 +24,3 @@ def generate(size=18):
     return individual
 
 
-def generate_population(size):
-    """
-    Generate `size` Individuals with random genotype
-    """
-    return [Individual(generate()) for i in range(size)]
-
-
