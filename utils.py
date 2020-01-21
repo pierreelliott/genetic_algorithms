@@ -20,7 +20,7 @@ def evaluate(x):
 def generate(size=18):
     individual = random.choices(available_characters, k=size)
     while len(individual) < 12:
-        individual = random.choices(available_characters, k=size)
+        individual = random.choices(available_characters, k=gen_size)
     return individual
 
 

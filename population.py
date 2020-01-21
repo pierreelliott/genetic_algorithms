@@ -9,14 +9,31 @@ class Population:
         self.exploration = exploration
 
     def evaluate(self):
-        self.population = sorted(map(evaluate, self.population), key=lambda x: x['score'], reverse=True)
+        self.population = sorted(map(evaluate, self.population), key=lambda x: x.score, reverse=True)
 
     def evolve(self):
         self.exploration.evolve(self)
 
+    def get_max(self):
+        return max(self.population, key=lambda x: x.score)
+
+    def get_n_max(self, n):
+        res = []
+        pop = self.population[:]
+        for i in range(n):
+            max_individual = max(pop, key=lambda x: x.score)
+            res.append(max_individual)
+            pop = pop.remove(max_individual)
+        return res
+
+    def get_average_score(self):
+        s = 0
+        for ind in self.population:
+            s += ind.score
+        return s/len(self.population)
+
     def __str__(self):
-        return ''.join(map(lambda x: ''.join(x['genotype']) + f" ({x['score']})\n", self.population)).strip()
-    
+        return ''.join(map(lambda x: x.phenotype + f" ({x.score})\n", self.population)).strip()
     
 
 class Individual:

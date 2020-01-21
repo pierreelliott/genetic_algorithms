@@ -1,6 +1,5 @@
 import random
-from utils import copy_individual
-
+from utils import copy_individual, generate_population
 
 
 class RandomExploration:
