@@ -17,8 +17,7 @@ def evaluate(x):
     return x
 
 
-def generate():
-    size = 18
+def generate(size=18):
     individual = random.choices(available_characters, k=size)
     while len(individual) < 12:
         individual = random.choices(available_characters, k=size)
