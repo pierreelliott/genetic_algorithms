@@ -1,4 +1,4 @@
-from cross_overs import CrossOverRandomTwo
+from cross_overs import CrossOverRandomSliceTwo, CrossOverScoreSliceTwo
 from explorations import SimpleExploration
 from mutations import NCharMutation
 from population import Population
@@ -38,9 +38,9 @@ def evolve_population(population, max_epochs=1000, show_progress=False, progress
 
 
 def search(population_size=10, epochs=10):
-    cross_over = CrossOverRandomTwo(0.6)
+    cross_over = CrossOverScoreSliceTwo(0.6)
     mutation = NCharMutation(n=2)
-    exploration = SimpleExploration(cross_over, mutation, bests_size=int(population_size / 10))
+    exploration = SimpleExploration(cross_over, mutation, elite_size=int(population_size / 10))
 
     population = Population(population_size, exploration=exploration)
     averages, bests, best = evolve_population(population, max_epochs=epochs, show_progress=False)
