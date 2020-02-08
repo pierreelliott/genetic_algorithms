@@ -1,6 +1,6 @@
 from cross_overs import CrossOverRandomSliceTwo, CrossOverScoreSliceTwo
 from explorations import SimpleExploration
-from mutations import NCharMutation
+from mutations import NCharRandomMutation, NCharNextPrevMutation, NCharSeqMutation, NCharSeqNextPrevMutation
 from population import Population
 from matplotlib import pyplot as plt
 
@@ -39,7 +39,7 @@ def evolve_population(population, max_epochs=1000, show_progress=False, progress
 
 def search(population_size=10, epochs=10):
     cross_over = CrossOverScoreSliceTwo(0.6)
-    mutation = NCharMutation(n=2)
+    mutation = NCharSeqNextPrevMutation(n=2)
     exploration = SimpleExploration(cross_over, mutation, elite_size=int(population_size / 10))
 
     population = Population(population_size, exploration=exploration)

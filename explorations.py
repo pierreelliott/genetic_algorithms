@@ -32,7 +32,7 @@ class SimpleExploration:
         pop.population = new_population
 
     def selection(self, pop):
-        return pop.population[:self.bests_size]
+        return pop.population[:self.elite_size]
     
 
 class TerraExploration:
