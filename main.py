@@ -48,4 +48,54 @@ def search(population_size=10, epochs=10):
     plot_results(averages, bests)
 
 
-search(population_size=200, epochs=100)
+def stats(configs, nb_repeats):
+    to_plot = []
+    for i, conf in enumerate(configs):
+        print(i, conf)
+        repeats = []
+        for i in range(nb_repeats):
+            exploration = SimpleExploration(conf['cross_over'],
+                                            conf['mutation'],
+                                            elite_size=conf['population_size'] // 10)
+            population = Population(conf['population_size'], exploration=exploration)
+            _, bests, _ = evolve_population(population, max_epochs=conf['epochs'], show_progress=False)
+            repeats.append(bests)
+        average = []
+        for i in range(conf['epochs']):
+            s = 0
+            for r in repeats:
+                s += r[i]
+            average.append(s/nb_repeats)
+        to_plot.append(average)
+
+    for i, l in enumerate(to_plot):
+        plt.plot(l, label=str(i))
+    plt.xlabel('Itérations')
+    plt.ylabel('Scores')
+    plt.legend(loc="lower right")
+    plt.show()
+
+
+configs = [
+    {
+        'population_size': 200,
+        'epochs': 200,
+        'mutation': NCharSeqNextPrevMutation(n=2),
+        'cross_over': CrossOverRandomSliceTwo(0.6),
+    },
+    {
+        'population_size': 500,
+        'epochs': 200,
+        'mutation': NCharSeqNextPrevMutation(n=2),
+        'cross_over': CrossOverRandomSliceTwo(0.6),
+    },
+    {
+        'population_size': 100,
+        'epochs': 200,
+        'mutation': NCharSeqNextPrevMutation(n=2),
+        'cross_over': CrossOverRandomSliceTwo(0.6),
+    }
+]
+
+stats(configs, nb_repeats=3)
+# search(population_size=200, epochs=100)
