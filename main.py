@@ -1,4 +1,4 @@
-from cross_overs import CrossOverRandomSliceTwo, CrossOverScoreSliceTwo
+from cross_overs import CrossOverRandomSliceTwo
 from explorations import SimpleExploration
 from mutations import NCharRandomMutation, NCharNextPrevMutation, NCharSeqMutation, NCharSeqNextPrevMutation
 from population import Population
@@ -81,21 +81,21 @@ configs = [
         'population_size': 200,
         'epochs': 200,
         'mutation': NCharSeqNextPrevMutation(n=2),
-        'cross_over': CrossOverRandomSliceTwo(0.6),
+        'cross_over': CrossOverRandomSliceTwo(0.2),
     },
     {
-        'population_size': 500,
+        'population_size': 200,
         'epochs': 200,
         'mutation': NCharSeqNextPrevMutation(n=2),
         'cross_over': CrossOverRandomSliceTwo(0.6),
     },
     {
-        'population_size': 100,
+        'population_size': 200,
         'epochs': 200,
         'mutation': NCharSeqNextPrevMutation(n=2),
-        'cross_over': CrossOverRandomSliceTwo(0.6),
+        'cross_over': CrossOverRandomSliceTwo(1.0),
     }
 ]
 
-stats(configs, nb_repeats=3)
+stats(configs, nb_repeats=25)
 # search(population_size=200, epochs=100)
