@@ -41,7 +41,7 @@ class TerraExploration:
     """
     Mimick the existence of continents by evolving the population in small groups and reuniting them once in a while
     """
-    def __init__(self, cross_over, mutation, pop_size, elite_size=5, continents, reunion):
+    def __init__(self, cross_over, mutation, pop_size, continents, reunion, elite_size=5):
         self.cross_over = cross_over
         self.mutate = mutation
         self.elite_size = elite_size
@@ -58,11 +58,13 @@ class TerraExploration:
     def evolve(self, pop):
         new_population = []
         if self.epoch % self.reunion == 0:  # Reproduction of the entire population
-            new_population.extend(self.populate(pop.population, 0, self.size))
+            new_pop = self.populate(pop, 0, self.size)
+            new_population.extend(new_pop)
         else:  # Reproduction of population in small groups
             start = 0
             for continent in self.continents:
-                new_population.extend(self.populate(pop.population, start, continent))
+                new_subpop = self.populate(pop, start, continent)
+                new_population.extend(new_subpop)
                 start = continent
         pop.population = new_population
         self.epoch += 1
@@ -72,7 +74,7 @@ class TerraExploration:
         return population[:self.elite_size]
     
     def populate(self, population, start, end):
-        pop = population.population[start:end]  # Select population of specific "continent"
+        pop = sorted(population.population[start:end], key=lambda x: x.score, reverse=True)  # Select population of specific "continent"
         selected = self.selection(pop)  # Select bests individuals in the population
         
         pop_size = len(pop)  # To keep same number of individuals
